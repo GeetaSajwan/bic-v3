@@ -9,23 +9,23 @@ define(
 
     _.extend(Data.prototype, {
       create: function () {
-        return new $.Deferred().reject().promise();
+        return new $.Deferred().resolve().promise();
       },
 
       update: function () {
-        return new $.Deferred().reject().promise();
+        return new $.Deferred().resolve().promise();
       },
 
       read: function () {
-        return new $.Deferred().reject().promise();
+        return new $.Deferred().resolve().promise();
       },
 
       readAll: function () {
-        return new $.Deferred().reject().promise();
+        return new $.Deferred().resolve().promise();
       },
 
       delete: function () {
-        return new $.Deferred().reject().promise();
+        return new $.Deferred().resolve().promise();
       }
     });
 
