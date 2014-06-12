@@ -29,13 +29,26 @@ define(
 
         setupCallback = function () {
           if (navigator.onLine) {
-            app.populate().then(formsCallback, formsCallback);
+            app.populate().then(
+              function () {
+                formsCallback();
+              },
+              function () {
+                formsCallback();
+              });
           } else {
             app.initialRender();
           }
         };
 
-        app.datastore().collections().then(app.setup().then(setupCallback, setupCallback));
+        app.datastore().collections().then(
+          function () {
+            app.setup().then(setupCallback, setupCallback);
+          },
+          function () {
+            setupCallback();
+          }
+        );
       },
 
       routeRequest: function (data) {

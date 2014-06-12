@@ -97,6 +97,22 @@ module.exports = function (grunt) {
       }
     },
 
+    karma: {
+      tests: {
+        options: {
+          files: ['tests/loader.js'],
+          frameworks: ['mocha', 'requirejs', 'chai'],
+          reporters: 'progress',
+          runnerPort: 9876,
+          logLevel: 'INFO',
+          //autoWatch: false,
+          //browsers: ['Chrome', 'Firefox', 'Safari', 'IE', 'PhantomJS'],
+          browsers: ['Chrome', 'Safari', 'IE8 - WinXP'],
+          //singleRun: true
+        }
+      }
+    },
+
     clean: ['build'],
 
     requirejs: {
@@ -219,6 +235,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-saucelabs');
+  grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-hapi');
 
   grunt.registerTask('test', ['build', 'jslint', 'connect:server', 'mocha']);
