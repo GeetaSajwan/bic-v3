@@ -57,12 +57,10 @@ module.exports = function (grunt) {
     jslint: {
       all: {
         src: [
-          'scripts/**/*.js',
+          'src/**/*.js',
           'tests/**/*.js',
-          'buildtests/**/*.js',
-          '!scripts/frag/05-implementations.js',
-          '!tests/implementations.js',
-          '!**/vendor/**/*'
+          '!src/frag/05-implementations.js',
+          '!tests/support/**/*.js',
         ],
         directives: {
           "browser": true,
@@ -265,6 +263,15 @@ module.exports = function (grunt) {
           }
         ]
       }
+    },
+
+    intern: {
+      localTest: {
+        options: {
+          runType: 'runner',
+          config: 'tests/intern.js'
+        }
+      }
     }
 
   });
@@ -283,8 +290,10 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-mustache-render');
   grunt.loadNpmTasks('grunt-bumpup');
   grunt.loadNpmTasks('grunt-text-replace');
+  grunt.loadNpmTasks('intern');
+  grunt.loadNpmTasks('grunt-selenium-webdriver');
 
-  grunt.registerTask('test', ['build', 'jslint', 'connect:server', 'mocha']);
+  grunt.registerTask('test', ['jslint', 'selenium_start', 'intern', 'selenium_stop']);
   grunt.registerTask('travis', ['test', 'saucelabs-mocha']);
 
   grunt.registerTask('build', ['clean', 'replace', 'requirejs', 'copy', 'clean', 'uglify', 'mustache_render', 'bumpup']);
